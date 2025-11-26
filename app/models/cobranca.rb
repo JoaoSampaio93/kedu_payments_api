@@ -12,8 +12,23 @@ class Cobranca < ApplicationRecord
   validates :metodo_pagamento, presence: true
   validates :status, presence: true
 
+  class PagamentoInvalido < StandardError; end
+
   def vencida?
     !paga? && !cancelada? && Date.current > data_vencimento
+  end
+
+  def registrar_pagamento!(valor:, data_pagamento: Time.current)
+    raise PagamentoInvalido, 'Não é permitido registrar pagamento para cobrança cancelada' if cancelada?
+
+    pagamento = nil
+
+    transaction do
+      pagamento = pagamentos.create!(valor: valor, data_pagamento: data_pagamento)
+      update!(status: :paga)
+    end
+
+    pagamento
   end
 
   private
@@ -21,9 +36,9 @@ class Cobranca < ApplicationRecord
   def gerar_codigo_pagamento
     self.codigo_pagamento =
       if boleto?
-        "341#{SecureRandom.hex(10)}" # simulando linha digitável de boleto
+        "341#{SecureRandom.hex(10)}"
       else
-        "pix-#{SecureRandom.uuid}"   # simulando código/chave PIX
+        "pix-#{SecureRandom.uuid}"
       end
   end
 end

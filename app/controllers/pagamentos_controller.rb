@@ -2,26 +2,18 @@ class PagamentosController < ApplicationController
   def create
     cobranca = Cobranca.find(params[:cobranca_id])
 
-    if cobranca.cancelada?
-      render json: { error: "Não é permitido registrar pagamento para cobrança cancelada" },
-             status: :unprocessable_entity
-      return
-    end
+    pagamento = cobranca.registrar_pagamento!(
+      valor: params[:valor],
+      data_pagamento: params[:dataPagamento] || Time.current
+    )
 
-    Pagamento.transaction do
-      pagamento = cobranca.pagamentos.create!(
-        valor: params[:valor],
-        data_pagamento: params[:dataPagamento] || Time.current
-      )
-
-      cobranca.update!(status: :paga)
-
-      render json: {
-        pagamento_id: pagamento.id,
-        cobranca_id: cobranca.id,
-        status_cobranca: cobranca.status.upcase
-      }, status: :created
-    end
+    render json: {
+      pagamento_id: pagamento.id,
+      cobranca_id: cobranca.id,
+      status_cobranca: cobranca.status.upcase
+    }, status: :created
+  rescue Cobranca::PagamentoInvalido => e
+    render json: { error: e.message }, status: :unprocessable_entity
   rescue ActiveRecord::RecordInvalid => e
     render json: { error: e.record.errors.full_messages }, status: :unprocessable_entity
   end
