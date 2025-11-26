@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cobranca: one
+  valor: 
+  valor: 
+  data_pagamento: 2025-11-26 18:14:22
+
+two:
+  cobranca: two
+  valor: 
+  valor: 
+  data_pagamento: 2025-11-26 18:14:22

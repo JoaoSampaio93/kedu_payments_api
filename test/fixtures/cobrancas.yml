@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plano_de_pagamento: one
+  valor: 
+  valor: 
+
+two:
+  plano_de_pagamento: two
+  valor: 
+  valor: 
