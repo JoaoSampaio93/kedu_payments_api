@@ -5,7 +5,7 @@ class PlanosDePagamentoController < ApplicationController
     render json: serialize_plano(plano), status: :created
   rescue ActiveRecord::RecordInvalid => e
     render json: {
-      error: "Erro ao criar plano de pagamento",
+      error: 'Erro ao criar plano de pagamento',
       details: e.record.errors.full_messages
     }, status: :unprocessable_entity
   end
@@ -34,12 +34,12 @@ class PlanosDePagamentoController < ApplicationController
       :responsavel_id,
       :centroDeCusto,
       :centro_de_custo,
-      cobrancas: [
-        :valor,
-        :dataVencimento,
-        :data_vencimento,
-        :metodoPagamento,
-        :metodo_pagamento
+      cobrancas: %i[
+        valor
+        dataVencimento
+        data_vencimento
+        metodoPagamento
+        metodo_pagamento
       ]
     )
   end

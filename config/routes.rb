@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :responsaveis, only: %i[create show] do
+  resources :responsaveis, only: %i[create show index] do
     resources :planos_de_pagamento, only: [:index]
     get 'cobrancas', to: 'cobrancas#por_responsavel'
     get 'cobrancas/quantidade', to: 'cobrancas#quantidade_por_responsavel'
