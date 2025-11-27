@@ -1,6 +1,6 @@
 class CreateResponsavels < ActiveRecord::Migration[6.1]
   def change
-    create_table :responsavels do |t|
+    create_table :responsaveis do |t|
       t.string :nome
       t.string :documento
 

@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2025_11_26_211422) do
     t.index ["responsavel_id"], name: "index_plano_de_pagamentos_on_responsavel_id"
   end
 
-  create_table "responsavels", force: :cascade do |t|
+  create_table "responsaveis", force: :cascade do |t|
     t.string "nome"
     t.string "documento"
     t.datetime "created_at", precision: 6, null: false
@@ -61,5 +61,5 @@ ActiveRecord::Schema.define(version: 2025_11_26_211422) do
   add_foreign_key "cobrancas", "plano_de_pagamentos"
   add_foreign_key "pagamentos", "cobrancas"
   add_foreign_key "plano_de_pagamentos", "centro_de_custos"
-  add_foreign_key "plano_de_pagamentos", "responsavels"
+  add_foreign_key "plano_de_pagamentos", "responsaveis"
 end
