@@ -1,10 +1,9 @@
 class PagamentosController < ApplicationController
   def create
     cobranca = Cobranca.find(params[:cobranca_id])
-
     pagamento = cobranca.registrar_pagamento!(
       valor: params[:valor],
-      data_pagamento: params[:dataPagamento] || Time.current
+      data_pagamento: params[:data_pagamento]
     )
 
     render json: {

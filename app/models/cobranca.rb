@@ -1,6 +1,6 @@
 class Cobranca < ApplicationRecord
   belongs_to :plano_de_pagamento
-  has_many :pagamentos, dependent: :destroy
+  has_one :pagamento, dependent: :destroy
 
   enum metodo_pagamento: { boleto: 0, pix: 1 }
   enum status: { emitida: 0, paga: 1, cancelada: 2 }
@@ -19,12 +19,15 @@ class Cobranca < ApplicationRecord
   end
 
   def registrar_pagamento!(valor:, data_pagamento: Time.current)
+    raise PagamentoInvalido, 'Cobrança já está paga' if paga?
     raise PagamentoInvalido, 'Não é permitido registrar pagamento para cobrança cancelada' if cancelada?
+    raise PagamentoInvalido, 'A data de pagamento não pode ser no passado' if data_pagamento.to_date < Date.current
+    raise PagamentoInvalido, 'Não é permitido pagar uma cobrança vencida' if vencida?
 
     pagamento = nil
 
     transaction do
-      pagamento = pagamentos.create!(valor: valor, data_pagamento: data_pagamento)
+      pagamento = create_pagamento!(valor: valor, data_pagamento: data_pagamento)
       update!(status: :paga)
     end
 

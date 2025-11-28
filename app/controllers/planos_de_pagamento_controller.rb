@@ -30,15 +30,11 @@ class PlanosDePagamentoController < ApplicationController
 
   def plano_payload
     params.permit(
-      :responsavelId,
       :responsavel_id,
-      :centroDeCusto,
-      :centro_de_custo,
+      :centro_de_custo_id,
       cobrancas: %i[
         valor
-        dataVencimento
         data_vencimento
-        metodoPagamento
         metodo_pagamento
       ]
     )

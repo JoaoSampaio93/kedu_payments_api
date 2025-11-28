@@ -4,4 +4,5 @@ class Responsavel < ApplicationRecord
            dependent: :destroy
 
   validates :nome, presence: true
+  validates :documento, presence: true, uniqueness: true
 end

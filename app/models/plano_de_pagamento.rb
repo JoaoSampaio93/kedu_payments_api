@@ -3,6 +3,8 @@ class PlanoDePagamento < ApplicationRecord
   belongs_to :centro_de_custo
   has_many :cobrancas, dependent: :destroy
 
+  validate :deve_ter_ao_menos_uma_cobranca, on: :create
+
   accepts_nested_attributes_for :cobrancas
 
   def valor_total
@@ -23,11 +25,17 @@ class PlanoDePagamento < ApplicationRecord
     end
   end
 
+  def deve_ter_ao_menos_uma_cobranca
+    if cobrancas.empty?
+      errors.add(:base, 'Plano de pagamento deve ter ao menos uma cobrança')
+    end
+  end
+
   def self.normalizar_payload(payload)
     payload = payload.to_h.deep_symbolize_keys
 
-    responsavel_id      = payload[:responsavelId]   || payload[:responsavel_id]
-    centro_de_custo_id  = payload[:centroDeCusto]   || payload[:centro_de_custo]
+    responsavel_id      = payload[:responsavel_id]
+    centro_de_custo_id  = payload[:centro_de_custo_id]
     cobrancas_raw       = payload[:cobrancas]       || []
 
     cobrancas_attributes = cobrancas_raw.map do |c|
@@ -35,8 +43,8 @@ class PlanoDePagamento < ApplicationRecord
 
       {
         valor: c[:valor],
-        data_vencimento: c[:dataVencimento] || c[:data_vencimento],
-        metodo_pagamento: (c[:metodoPagamento] || c[:metodo_pagamento]).to_s.downcase,
+        data_vencimento: c[:data_vencimento],
+        metodo_pagamento: c[:metodo_pagamento].to_s.downcase,
         status: :emitida
       }
     end
