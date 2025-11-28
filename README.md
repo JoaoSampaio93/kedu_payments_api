@@ -46,9 +46,8 @@ rails db:create db:migrate db:seed
 
 ### 1.4. Subir o servidor
 
-bash
+
 rails s
-```
 
 ## 2. Modelo de Domínio
 
