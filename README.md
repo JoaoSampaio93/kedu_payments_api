@@ -179,6 +179,7 @@ Abaixo estão as rotas principais da API, sempre com:
 
 **Rota**
 
+```bash
 GET /responsaveis
 
 Descrição
