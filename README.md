@@ -46,7 +46,7 @@ rails db:create db:migrate db:seed
 
 ### 1.4. Subir o servidor
 
-```bash
+bash
 rails s
 ```
 
@@ -152,7 +152,7 @@ Representa o recebimento de uma cobrança específica.
 
 ---
 
-# ✔️ Resumo visual do domínio
+# Resumo visual do domínio
 
 **Responsavel**
         └── has_many → PlanosDePagamento
@@ -180,10 +180,7 @@ Abaixo estão as rotas principais da API, sempre com:
 
 **Rota**
 
-```http
 GET /responsaveis
-
-
 
 Descrição
 
@@ -198,7 +195,6 @@ curl http://localhost:3000/responsaveis
 Rota
 
 POST /responsaveis
-
 
 Descrição
 
