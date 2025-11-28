@@ -30,19 +30,19 @@ bundle install
 rails db:create db:migrate db:seed
 ```
 
-#O db:seed cria:
+### **O db:seed cria:**
 
-1 Responsável (ex.: João Responsável, id = 1)
+- 1 Responsável (ex.: João Responsável, id = 1)
 
-3 Centros de Custo:
+- 3 Centros de Custo:
 
-MATRICULA
+- MATRICULA
 
-MENSALIDADE
+- MENSALIDADE
 
-MATERIAL
+- MATERIAL
 
-1 Plano de Pagamento de exemplo com 2 cobranças
+- 1 Plano de Pagamento de exemplo com 2 cobranças
 
 ### 1.4. Subir o servidor
 
@@ -50,7 +50,7 @@ MATERIAL
 rails s
 ```
 
-# 📌 2. Modelo de Domínio
+## 2. Modelo de Domínio
 
 ## 2.1. Responsável Financeiro (`Responsavel`)
 
