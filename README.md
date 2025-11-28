@@ -155,8 +155,8 @@ Representa o recebimento de uma cobrança específica.
 # ✔️ Resumo visual do domínio
 
 Responsavel
-└── has_many → PlanosDePagamento
-└── has_many → Cobrancas
-└── has_one → Pagamento
+        └── has_many → PlanosDePagamento
+                                   └── has_many → Cobrancas
+                                                        └── has_one → Pagamento
 CentroDeCusto
 └── has_many → PlanosDePagamento
